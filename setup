@@ -1,0 +1,19 @@
+#!/bin/bash
+####
+## Bash script for qemuRaspPi following:
+##   https://azeria-labs.com/emulate-raspberry-pi-with-qemu/
+##	© 2017-2020 Azeria Labs™ | All Rights Reserved.
+##
+## github.com/dev-west/scr-qemuRaspPi
+## LIC: mit
+####
+
+####
+## Other libs used
+##
+##    https://github.com/multiarch/qemu-user-static
+##
+####
+
+## attempt registration of multiarch/qemu-*-static
+docker run --rm --privileged multiarch/qemu-user-static:register

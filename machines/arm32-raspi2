@@ -1,0 +1,9 @@
+  !M_!ID:
+    image: hannseman/raspbian
+    ports:
+      - !ID22:2222       # 2222 from image EXPOSE
+    volumes:
+      - ./!M_!ID:/code  # map proj dir to container /code
+    privileged: true
+
+#SSH ssh -p !ID22 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no pi@localhost

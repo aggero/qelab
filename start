@@ -1,0 +1,113 @@
+#!/bin/bash
+####
+## Bash script starter for qemotes
+##
+##   https://github.com/aggero/qemotes
+##   LIC: GNU GPLv3
+##
+####
+
+####
+## Notes
+##
+##   Script will start docker compose
+##     built by the build script
+##
+####
+
+## Script resources
+dirCalling="$(pwd)"
+dirWorkspace="projects/"
+dirProject="" # passed as arg
+strCMD="docker-compose up -d"
+strDC="docker-compose.yml"
+
+## Ease-of-use for this script
+this=$(basename $BASH_SOURCE)
+cleanup() { exit 1; }
+err() { printf "%s\n" "$*" >&2; cleanup; }
+out() {
+	if [ -z "$q" ]; then
+		printf "\t%s\n" "$*"
+	fi
+}
+
+trap ctr_c INT
+ctrl_c() {
+	echo -e "\t-~<| !! Trapped CTRL-C !! |>~"
+	cleanup
+}
+
+## Parse Inputs
+proj=""
+
+usage() {
+	echo -e "\nUsage: $this [options] <project>\n"
+
+	echo -e "\t--usage"
+	echo -e "\t    outputs this message\n"
+
+	echo -e "\t--quiet|-q"
+	echo -e "\t    suppresses output except for errors\n"
+
+	echo -e "\t--projects|-p"
+	echo -e "\t    list built projects; see folder:"
+	echo -e "\t      $dirWorkspace"
+
+	cleanup
+}
+
+while [ ! -z "$1" ]; do
+	case "$1" in
+		# usage
+		--usage|-u)
+			usage
+		;;
+
+		# quiet output
+		--quiet|-q)
+			quiet="true"
+		;;
+
+		# list machines
+		--projects|-p)
+			echo "Built projects:"
+			for fn in $(echo "$dirWorkspace*"); do
+				echo -e "\t$(basename $fn)"
+			done
+			cleanup
+		;;
+
+		# projects
+		*)
+			aProject="$1"
+			if [ -n "$proj" ]; then
+				err "Cannot define project; already defined $proj."
+			else
+				proj="$aProject/"
+			fi
+		;;
+	esac
+
+	shift
+done
+
+## Check inputs
+if [ -z "$proj" ]; then
+	err "No project defined. Try --projects for list of build projects."
+fi
+
+if [ -d $(echo "$dirWorkspace$aMachine") ]; then
+	if [ ! -f $(echo "$dirWorkspace$proj$strDC") ]; then
+		err "Unsupported project. Try --projects for list of built projects."
+	fi
+else
+	err "Unsupported project. Try --projects for list of built projects."
+fi
+
+dirProject="$dirWorkspace$proj"
+
+## Call CMD; Start Project
+echo "Starting project: $proj"
+cd "$dirProject"
+$(echo "$strCMD")
