@@ -9,6 +9,7 @@ lab equipment built on qemu machines (pronounced K-Lab)
 * You can if you want--pull the script out of the machines folder and run them locally!
 
 ## Project Structure
+```
 :::::::::::::::    ::::::::::::::    ::::::::    :::::::::::
 : x D    8022 : -- : Deb-Buster : -- : qemu : -- :  ARM32  :
 : 8 o H       :    ::::::::::::::    ::::::::    :::::::::::
@@ -17,6 +18,7 @@ lab equipment built on qemu machines (pronounced K-Lab)
 : 6 e t  8122 : -- : Deb-Buster : -- : qemu : -- : AArch64 :
 : 4 r    8180 : -- :            : -- :      : -- :         :
 :::::::::::::::    ::::::::::::::    ::::::::    :::::::::::
+```
 
 Machines given interconnect IDs available to the host starting with 80xx, 81xx, 82xx, etc.
 
