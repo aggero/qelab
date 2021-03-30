@@ -30,3 +30,26 @@ Script creates project directories for separating unbuilt Dockerfiles from the m
 
 ## Current Machine Support
 arm32-raspi2 headless machine providing SSH access
+```
+~/qelab$ ./build -p a32rpi arm32-raspi2 arm32-raspi2
+Did not find workspace. Creating projects/.
+Creating project: a32rpi
+Machines (2):
+        arm32-raspi2
+        arm32-raspi2
+~/qelab$ ./start a32rpi
+Starting project: a32rpi/
+Creating network "a32rpi_default" with the default driver
+Creating a32rpi_arm32-raspi2_81_1 ... done
+Creating a32rpi_arm32-raspi2_80_1 ... done
+~/qelab$ projects/a32rpi/arm32-raspi2_80.ssh
+Warning: Permanently added '[localhost]:8022' (ECDSA) to the list of known hosts.
+pi@localhost's password: 
+(...)
+pi@raspberrypi:~ $ exit
+~/qelab$ projects/a32rpi/arm32-raspi2_81.ssh
+Warning: Permanently added '[localhost]:8122' (ECDSA) to the list of known hosts.
+pi@localhost's password: 
+(...)
+pi@raspberrypi:~ $
+```
